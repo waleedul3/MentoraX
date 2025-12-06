@@ -12,7 +12,10 @@ const ConnectionStatus = () => {
 
   const checkConnection = async () => {
     try {
-      const response = await fetch('http://localhost:4000/health');
+      const healthUrl = process.env.REACT_APP_BASE_URL 
+        ? `${process.env.REACT_APP_BASE_URL}/health` 
+        : 'http://localhost:4000/health';
+      const response = await fetch(healthUrl);
       if (response.ok) {
         setStatus('connected');
         setMessage('Server Connected');
